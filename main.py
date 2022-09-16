@@ -1,35 +1,78 @@
 
-# Import all files from
-# tkinter and overwrite
-# all the tkinter files
-# by tkinter.ttk
-from tkinter import *
-from tkinter.ttk import *
+# Python program to illustrate the usage of
+# treeview scrollbars using tkinter
  
-# creates tkinter window or root window
-root = Tk()
-root.geometry('500x500')
  
-# function to be called when button-2 of mouse is pressed
-def pressed2(event):
-    print('Button-2 pressed at x = % d, y = % d'%(event.x, event.y))
+from tkinter import ttk
+import tkinter as tk
  
-# function to be called when button-3 of mouse is pressed
-def pressed3(event):
-    print('Button-3 pressed at x = % d, y = % d'%(event.x, event.y))
+# Creating tkinter window
+window = tk.Tk()
+window.resizable(width = 1, height = 1)
  
-## function to be called when button-1 is double clocked
-def double_click(event):
-    print('Double clicked at x = % d, y = % d'%(event.x, event.y))
+# Using treeview widget
+treev = ttk.Treeview(window, selectmode ='browse')
  
-frame1 = Frame(root, height = 500, width = 500)
+# Calling pack method w.r.to treeview
+treev.pack(side ='right')
  
-# these lines are binding mouse
-# buttons with the Frame widget
-frame1.bind('<Button-2>', pressed2)
-frame1.bind('<Button-3>', pressed3)
-frame1.bind('<Double 1>', double_click)
+# Constructing vertical scrollbar
+# with treeview
+verscrlbar = ttk.Scrollbar(window,
+                           orient ="vertical",
+                           command = treev.yview)
  
-frame1.pack()
+# Calling pack method w.r.to vertical
+# scrollbar
+verscrlbar.pack(side ='right', fill ='x')
  
-mainloop()
+# Configuring treeview
+treev.configure(xscrollcommand = verscrlbar.set)
+ 
+# Defining number of columns
+treev["columns"] = ("1", "2", "3")
+ 
+# Defining heading
+treev['show'] = 'headings'
+ 
+# Assigning the width and anchor to  the
+# respective columns
+treev.column("1", width = 90, anchor ='c')
+treev.column("2", width = 90, anchor ='se')
+treev.column("3", width = 90, anchor ='se')
+ 
+# Assigning the heading names to the
+# respective columns
+treev.heading("1", text ="Name")
+treev.heading("2", text ="Sex")
+treev.heading("3", text ="Age")
+ 
+# Inserting the items and their features to the
+# columns built
+treev.insert("", 'end', text ="L1",
+             values =("Nidhi", "F", "25"))
+treev.insert("", 'end', text ="L2",
+             values =("Nisha", "F", "23"))
+treev.insert("", 'end', text ="L3",
+             values =("Preeti", "F", "27"))
+treev.insert("", 'end', text ="L4",
+             values =("Rahul", "M", "20"))
+treev.insert("", 'end', text ="L5",
+             values =("Sonu", "F", "18"))
+treev.insert("", 'end', text ="L6",
+             values =("Rohit", "M", "19"))
+treev.insert("", 'end', text ="L7",
+             values =("Geeta", "F", "25"))
+treev.insert("", 'end', text ="L8",
+             values =("Ankit", "M", "22"))
+treev.insert("", 'end', text ="L10",
+             values =("Mukul", "F", "25"))
+treev.insert("", 'end', text ="L11",
+             values =("Mohit", "M", "16"))
+treev.insert("", 'end', text ="L12",
+             values =("Vivek", "M", "22"))
+treev.insert("", 'end', text ="L13",
+             values =("Suman", "F", "30"))
+ 
+# Calling mainloop
+window.mainloop()
